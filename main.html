@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 16th</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fdf2f8;
+    }
+    .content {
+      display: none;
+      height: auto;
+    }
+    .active-content {
+      display: block;
+      text-align: center;
+    }
+    .container img {
+      max-width: 100%;
+      height: auto;
+    }
+    .cake-image {
+      width: 250px;
+      margin-bottom: 20px;
+    }
+    .carousel-buttons {
+      margin-top: 10px;
+    }
+    .message {
+      font-family: 'Cursive';
+      font-size: 1.5em;
+      color: #d63384;
+    }
+    .poem {
+      font-family: 'Cursive';
+      font-size: 1.4em;
+      color: #6f42c1;
+      text-align: left;
+    }
+    .poem-title {
+      font-weight: bold;
+    }
+    .photo-container {
+      position: relative;
+      text-align: center; /* Center align buttons */
+    }
+    #photo {
+      display: block;
+      margin: 0 auto; /* Center align the photo */
+    }
+    .button-container {
+      position: absolute;
+      bottom: -55px; /* Adjust based on how far from the bottom you want the buttons */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 300px; /* Adjust based on the width of the buttons and photo */
+    }
+    .btn {
+      margin: 0 5px; /* Adjust margin between buttons */
+    }
+    .photo-container img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="font-weight: bold; color: midnightblue;" href="#">Happy 16th</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showContent('home')">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showContent('memories')">Memories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showContent('messages')">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="showContent('poems')">Poems</a>
+          </li>
+          <!-- Logout Button -->
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="logout()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <!-- Home Section -->
+    <div id="home" class="content active-content">
+      <img src="cake.gif" class="cake-image" alt="Cake">
+      <h1 style="font-weight: bold; color: midnightblue; margin-bottom: 6px;">Happy 16th Monthsary, Mahal!</h1>
+      <p class="message">Each month with you feels like a beautiful new adventure. I love you more every day, and I’m excited for all the moments we’ll share in the future! 💖</p>
+    </div>
+
+    <!-- Memories Section -->
+    <div id="memories" class="content">
+      <div class="photo-container">
+        <h1 style="color: midnightblue; font-weight: bold;"> Favorites </h1>
+        <img id="photo" class="img-fluid">
+        <div class="button-container">
+          <button class="btn btn-primary" id="prevBtn">Previous</button>
+          <button class="btn btn-primary" id="nextBtn">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Section -->
+    <div id="messages" class="content">
+      <h2 style="margin-top: 10px; margin-bottom: 20px; font-weight: bold; color: midnightblue; font-size: 33px; font-family: cursive">Special Monthsary Message</h2>
+      <p class="message">To my dearest, every month we grow together is a treasure. I cherish every moment we’ve spent, and I’m forever grateful to have you by my side. You are my happiness, my inspiration, and my greatest love. I look forward to every day with you, to share laughter, dreams, and love. Here’s to us, and to the many more months we’ll celebrate together. I love you with all my heart! 💕</p>
+    </div>
+
+    <!-- Poems Section -->
+    <div id="poems" class="content">
+      <h2 style="margin-top: 10px; margin-bottom: 20px; font-weight: bold; color: midnightblue; font-size: 33px; font-family: cursive">Bound by Love</h2>
+      <p class="poem">
+        <span class="poem-title">A Love So True</span><br>
+        With each passing day, I love you more,<br>
+        In your heart, I’ve found my shore.<br>
+        You are my calm, my steady ground,<br>
+        In your love, I’m forever bound.<br><br>
+
+        Your smile lights up my darkest night,<br>
+        In your arms, the world feels right.<br>
+        Together we’ll walk through all life’s ways,<br>
+        Building memories that last all days.<br><br>
+
+        Happy monthsary, my love, my heart,<br>
+        Together, we’ll never be apart.<br>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const totalPhotos = 59;
+      let currentPhotoIndex = 1;
+
+      const photoElement = document.getElementById('photo');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      function updatePhoto(index) {
+        photoElement.src = `${index}.jpeg`;
+      }
+
+      prevBtn.addEventListener('click', () => {
+        if (currentPhotoIndex > 1) {
+          currentPhotoIndex--;
+          updatePhoto(currentPhotoIndex);
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (currentPhotoIndex < totalPhotos) {
+          currentPhotoIndex++;
+          updatePhoto(currentPhotoIndex);
+        }
+      });
+    });
+
+    function showContent(section) {
+      // Hide all content
+      var contents = document.getElementsByClassName('content');
+      for (var i = 0; i < contents.length; i++) {
+        contents[i].classList.remove('active-content');
+      }
+
+      // Show the selected section
+      document.getElementById(section).classList.add('active-content');
+    }
+
+    function logout() {
+      // Perform logout action, e.g., redirect to login page
+      window.location.href = 'index.html'; // Change to your actual login page URL
+    }
+
+    // Show "Home" section by default
+    document.getElementById('home').classList.add('active-content');
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
